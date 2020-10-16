@@ -1,0 +1,25 @@
+#**How to add button in tree view header near “Create” and “Import” buttons Odoo10**#
+
+https://supportuae.wordpress.com/2017/09/06/how-to-add-button-in-tree-view-header-near-create-and-import-buttons-odoo10/
+#**add domain in existing field**#
+
+ @api.onchange('partner_id')
+    def onchange_partner_id(self):
+        context = self._context
+        partner_id = context.get('default_partner_id') if context.get('default_partner_id') else self.partner_id.id
+        if type(partner_id) == int:
+            return {'domain': {'lead_id' : [('partner_id', '=', partner_id),('stage_id.name','!=',('Trash','Inforced'))]}}
+        else:
+            return {'domain': {'lead_id' : [('id','=',0)]}}
+            
+#**auto fill name field on create time**#
+customer = self.env['res.partner'].search([('id','=',vals.get('partner_id'))])
+        partner = customer.name
+        customer_first3 = partner[:3].upper()
+        product_ids = self.env['product.product'].search([('id','in',vals.get('product_ids')[0][2])])
+        product_id = product_ids[0].name
+        product_first1 = product_id[:1].upper()
+        print(product_id)
+          if vals.get('name', 'New') == 'New':
+        no_seq = self.env['ir.sequence'].next_by_code('crm.lead') or 'New'
+        vals['name'] = product_first1 + customer_first3 +no_seq
