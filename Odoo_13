@@ -23,3 +23,8 @@ customer = self.env['res.partner'].search([('id','=',vals.get('partner_id'))])
           if vals.get('name', 'New') == 'New':
         no_seq = self.env['ir.sequence'].next_by_code('crm.lead') or 'New'
         vals['name'] = product_first1 + customer_first3 +no_seq
+#**get value from M2M field at CREATE & WRITE time **# 
+       def write(self,vals):
+        if vals.get('product_ids'):
+            product_id_name=[]
+            product_ids = self.env['product.product'].search([('id','in',vals.get('product_ids')[0][2])])
