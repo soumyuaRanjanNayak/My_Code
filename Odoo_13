@@ -28,3 +28,9 @@ customer = self.env['res.partner'].search([('id','=',vals.get('partner_id'))])
         if vals.get('product_ids'):
             product_id_name=[]
             product_ids = self.env['product.product'].search([('id','in',vals.get('product_ids')[0][2])])
+       
+      @api.model
+      def create(self,vals):
+        product_id_name=[]
+        product_ids = self.env['product.product'].search([('id','in',vals.get('product_ids')[0][2])])
+        for result in product_ids:
