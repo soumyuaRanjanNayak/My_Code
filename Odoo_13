@@ -34,3 +34,27 @@ customer = self.env['res.partner'].search([('id','=',vals.get('partner_id'))])
         product_id_name=[]
         product_ids = self.env['product.product'].search([('id','in',vals.get('product_ids')[0][2])])
         for result in product_ids:
+        
+        
+        
+ #**CHANGE O2M FIELD RECORD FROM IR.ACTION[CRON FUNCTION**#
+        def action_nmt_comm_cal_check_policy(self):
+        current_date = date.today()
+        schedule_ids = self.env['nmt.comm.schedule'].search([('date','=',current_date)])
+        for data in schedule_ids:
+            print(current_date)
+            search_comm_policy_id = self.env['hr.employee'].search([])
+            update_policy_list=[]
+            for res in search_comm_policy_id:
+                if res.comm_policy_id:
+                    old_policy = res.comm_policy_id.id
+                    res.write({'comm_policy_id' : data.policy_id})
+                    new_policy = res.comm_policy_id.id
+                    print(old_policy)
+                    update_policy_list.append([0,0,{
+                                    'employee_id':  res.id,  
+                                    'cur_policy_id': old_policy,
+                                    'policy_id':new_policy
+                                }])
+                    data.write({'update_ids' : update_policy_list})
+        return True
