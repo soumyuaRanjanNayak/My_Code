@@ -60,3 +60,37 @@ customer = self.env['res.partner'].search([('id','=',vals.get('partner_id'))])
                                 }])
                     data.write({'update_ids' : update_policy_list})
         return True
+        
+        
+        
+ #***PRINT REPORT ON BUTTON CLICK WITH FILLED CURRENT RECORD FIELD FROM WIZARD***#
+
+            def action_print_timesheet(self):
+        active_ids = self._context.get('active_ids')
+        context = self._context
+        for record in self.env['nmt.matter'].browse(active_ids):
+            record.print_pref_employee_id = self.employee_id
+            if not isinstance(record, list):
+                ids = [record]
+            context = dict(context or {}, active_ids=ids, active_model='nmt.matter')
+            return self.env.ref('nmt_matter_management.matter_custom_report_timesheets_print').report_action(record)
+
+
+
+
+#***ACTION ADD IN TREE VIEW**#
+<act_window id="action_nmt_matter_print_timesheet"
+            multi="True"
+            key2="client_action_multi" name="Print Timesheet"
+            res_model="nmt.matter.print_timeshhet" src_model="nmt.matter"
+            view_mode="form" target="new" view_type="form" />
+        
+      #***ACTION ADD IN FORM VIEW**# 
+         <act_window id="action_nmt_matter_print_timesheet"
+            name="Print Timesheet"
+            src_model="nmt.matter"
+            res_model="nmt.matter.print_timeshhet"
+            view_mode="tree"
+            view_id="view_nmt_matter_print_timeshhet_wizard"
+           
+        />
