@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+
+    <!-- Leave Request Notification Reminder -->
+
+    <record id="leave_request_email_notification" model="mail.template">
+        <field name="name">Leave Request Notification Reminder</field>
+        <field name="subject">Notification : Leave request approval reminder</field>
+        <field name="email_to">${ctx['email_to']}</field>
+        <field name="model_id" ref="base.model_res_users" />
+        <field name="auto_delete" eval="False" />
+        <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);">
+                <p><b>Dear Sir/Madam,</b></p>
+                <div style="width: 900px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+                	<h2>List of Request for Leave Approval</h2>
+                    <span style="color: #222; margin-bottom: 5px; display: block;">
+	                    <p>
+	                    	Number of Application pending approval : ${ctx['total_unapproved_leave']}<br/>
+	                    	Names of applicants pending approval : <br/>
+	                    	<ul>
+                            	% for row in ctx['applicants']:                                  
+                                      <li>${row}</li>
+                                %endfor
+                            </ul>
+                            Click here to view list of applications (<a href="${ctx['leave_link']}">Link</a>)
+	                    </p>
+                    </span>
+                </div>
+            </div>]]>
+        </field>
+    </record>
+    
+    <record id="leave_cancel_request_email_notification" model="mail.template">
+        <field name="name">Leave Request Cancellation Notification Reminder</field>
+        <field name="subject">Notification : Leave request cancellation approval reminder</field>
+        <field name="email_to">${ctx['email_to']}</field>
+        <field name="model_id" ref="base.model_res_users" />
+        <field name="auto_delete" eval="False" />
+        <field name="body_html"><![CDATA[
+            <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34);">
+                <p><b>Dear Sir/Madam,</b></p>
+                <div style="width: 900px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+                	<h2>List of Request for Leave Approval</h2>
+                    <span style="color: #222; margin-bottom: 5px; display: block;">
+	                    <p>
+	                    	Number of Application pending approval : ${ctx['total_unapproved_leave']}<br/>
+	                    	Names of applicants pending approval : <br/>
+	                    	<ul>
+                            	% for row in ctx['applicants']:                                  
+                                      <li>${row}</li>
+                                %endfor
+                            </ul>
+                            Click here to view list of applications (<a href="${ctx['leave_link']}">Link</a>)
+	                    </p>
+                    </span>
+                </div>
+            </div>]]>
+        </field>
+    </record>
+    
+	
+
+    </data>
+</odoo>

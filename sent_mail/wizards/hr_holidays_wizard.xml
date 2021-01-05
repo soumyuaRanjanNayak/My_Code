@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<act_window name="Approve Leave"            
+            res_model="hr.holidays.wizard"
+            src_model="hr.holidays"
+            view_mode="form"
+            target="new"        
+            key2="client_action_multi"    
+            id="act_approve_bulk_leave"
+            multi="True"/>    
+            
+         <record id="ltpl_view_holidays_wizard_form_do" model="ir.ui.view">
+            <field name="name">Approve Holidays</field>
+            <field name="model">hr.holidays.wizard</field>
+            <field name="arch" type="xml">
+            <form string="Approve Leaves">
+                <group string="Do you really want to approve the leave(s)?">
+                </group>
+                <footer>
+                    <button name="approve_multiple_holidays" string="Approve Leaves" type="object"  class="oe_highlight"  />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+        <record id="ltpl_approve_holidays_form_done" model="ir.ui.view">
+			<field name="name">Approve Leave</field>
+			<field name="model">hr.holidays.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Approve Leave">
+					<separator colspan="4" string="Leave(s) Approved." />					
+					<footer>
+						<button class="oe_link" special="cancel" string="Close" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+    </data>
+</openerp>
