@@ -1,0 +1,12 @@
+FILTERED DATA IN REPORT
+
+  <t t-set="move_line_ids" t-value="move.move_line_ids.filtered(lambda x: x.lot_id)"/>
+  <t t-if="move_line_ids">
+    <span><b><u>Part Number, S/N</u></b></span>
+      <t t-foreach="move_line_ids" t-as="move_line_data">
+      <t t-set="stock_ids" t-value="move_line_data.lot_id.nmt_stock_sn_ids.filtered(lambda x: x.type_id)"/>
+        <t t-foreach="stock_ids" t-as="stock_data">	
+          <p class="p-0 m-0"><span t-field="stock_data.type_id"/><span>,</span><span t-field="move_line_data.lot_id"/></p>
+        </t>
+     </t>
+  </t>
