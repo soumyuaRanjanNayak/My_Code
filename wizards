@@ -1,0 +1,27 @@
+## OPEN WIZARD FROM FUNCTION CALL ##
+
+  def llr_invoice_line(self):         
+        invoice_line_ids = []
+        for manifest in self.manifest_ids:
+            invoice_line_id = {
+                'llr_id':self.id,
+                'quantity':manifest.product_uom_qty,
+                'manifest_id':manifest.id,
+                'llr_id':self.id,
+                'product_uom':manifest.product_uom.id,
+                'replace':False
+            }
+            invoice_line_ids.append((0,0,invoice_line_id))
+            
+        vals = {
+             'llr_id':self.id,
+             'invoice_line_id':invoice_line_ids
+         }   
+        rec = self.env['nmt.llr.invoice.wizard'].create(vals)
+        return {
+      'type': 'ir.actions.act_window', 
+      'view_type': 'form', 
+     'view_mode': 'form',
+     'res_model': 'nmt.llr.invoice.wizard', 
+     'target': 'new', 
+}
