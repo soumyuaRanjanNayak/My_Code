@@ -25,3 +25,16 @@
      'res_model': 'nmt.llr.invoice.wizard', 
      'target': 'new', 
 }
+
+###### OTHER OPTION CALL WIZARD FROM METHOD ############
+def action_select_products(self):
+        return {
+            'name': _('Select Products'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'nmt.select_product.wizard',
+            'target': 'new',
+            'context': {
+                'default_session_id': self.id,
+            }
+    }
